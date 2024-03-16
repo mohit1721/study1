@@ -1,0 +1,25 @@
+.highlight1 {
+    background: rgb(2, 0, 36);
+    /* font-size: 72px; */
+            background: -webkit-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+    
+  }
+  
+  .highlight2 {
+    background: rgb(2, 0, 36);
+    /* font-size: 72px; */
+            background: -webkit-radial-gradient(circle, rgba(168, 86, 10, 0.858) 0%, rgba(215, 69, 7, 0.773) 29%, rgb(229, 83, 4) 62%, rgb(255, 81, 0) 93%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+    
+  }
+  .highlight3 {
+    background: rgb(2, 0, 36);
+    /* font-size: 72px; */
+            background: -webkit-radial-gradient(circle, rgb(222, 117, 163) 12%, rgb(84, 210, 222) 87%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+    
+  }
