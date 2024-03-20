@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const OTP = require("../models/OTP");
 const otpGenerator = require("otp-generator");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
 const { passwordUpdated } = require("../mail/templates/passwordUpdate");
@@ -93,7 +93,7 @@ exports.signup = async (req, res) => {
     }
 
     //7.Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     // Create the user
     let approved = "";
     approved === "Instructor" ? (approved = false) : (approved = true);
@@ -165,7 +165,7 @@ exports.login = async (req, res) => {
       })
     }
     //4.generate JWT,after password matching[compare fxn]
-    if (await bcrypt.compare(password, user.password)) {
+    if (await bcryptjs.compare(password, user.password)) {
       
       const token = jwt.sign(
         { email: user.email, id: user._id,accountType: user.accountType}, // role: user.role  MOHIT->CHANGE-1
@@ -283,7 +283,7 @@ exports.changePassword = async (req, res) => {
     const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
     // Validate old password
-    const isPasswordMatch = await bcrypt.compare(
+    const isPasswordMatch = await bcryptjs.compare(
       oldPassword,
       userDetails.password
     )
@@ -307,7 +307,7 @@ exports.changePassword = async (req, res) => {
     // Update password
    
    
-    const encryptedPassword = await bcrypt.hash(newPassword, 10);
+    const encryptedPassword = await bcryptjs.hash(newPassword, 10);
     const updatedUserDetails = await User.findByIdAndUpdate(
       req.user.id,
       { password: encryptedPassword },

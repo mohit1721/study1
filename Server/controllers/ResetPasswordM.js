@@ -4,7 +4,7 @@
 
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const crypto = require("crypto");
 //resetPasswordToken--->mail send
 
@@ -101,7 +101,7 @@ exports.resetPassword = async (req, res) => {
       })
     }
     // 6.hash pwd
-    const encryptedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = await bcryptjs.hash(password, 10);
     // 7.password update
     await User.findOneAndUpdate( //GALYI--++--->not findByIdAndDelete
       { token: token }, //searching criteria
