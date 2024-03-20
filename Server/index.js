@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",  //FOR FRONTEND....VVI..to entertain frontend req.
+    origin:"https://study1.onrender.com",  //FOR FRONTEND....VVI..to entertain frontend req.[[http://localhost:3000]]
     credentials: true,
   })
 );
