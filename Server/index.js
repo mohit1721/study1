@@ -13,7 +13,7 @@ const cors = require("cors");//fronend ->3000 ,backend ->4000 ..and  i want back
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");//make sure all are installed [see in package.json]
 const dotenv = require("dotenv");
-
+const path = require("path");
 const PORT = process.env.PORT || 4000;
 
 dotenv.config();//load dotenv config
@@ -52,6 +52,10 @@ app.get("/", (req, res) => {
     message: 'Your server is up and running....',
   });
 });
+app.get("/", (req, res) => {
+  app.use(express.static(path.resolve(__dirname, "src", "build")));
+  res.sendFile(path.resolve(__dirname, "src", "build", "index.html"));
+  });
 //6. server activate[[VVi]]
 app.listen(PORT, () => {
   console.log(`App is listening on ${PORT}`)
