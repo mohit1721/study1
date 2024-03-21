@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin:["https://study1.onrender.com","http://localhost:3000","https://study1-ixfh86wdo-mohit1721s-projects.vercel.app/ " ],  //FOR FRONTEND....VVI..to entertain frontend req.[[http://localhost:3000]]
+    origin:["https://study1.onrender.com","http://localhost:3000","https://mystudynotion.vercel.app/"],  //FOR FRONTEND....VVI..to entertain frontend req.[[http://localhost:3000]]
     credentials: true,
   })
 );
