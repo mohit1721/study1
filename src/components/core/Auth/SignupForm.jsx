@@ -167,7 +167,7 @@ function SignupForm() {
   ];
 
   return (
-    <div onClick={(e)=>e.stopPropagation()} >
+    <div onClick={(e)=>e.stopPropagation()} className="mt-6">
       {/* Tab */}
       <Tab tabData={tabData} field={accountType} setField={setAccountType} />
       {/* Form */}
