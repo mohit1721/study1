@@ -19,6 +19,25 @@ const PORT = process.env.PORT || 4000;
 dotenv.config();//load dotenv config
 //2. database connect using connect fxn
 database.connect();//
+
+
+// app.get("/", (req, res) => { 
+//   try {    
+//      database.connect();
+//     return res.json({
+//       success: true,
+//       message: 'Your server is up and running....',
+//     });
+//   } catch (error) {
+//      // Step 3: Error ko handle karein
+//      console.error("Error connecting to database:", error);
+//      return res.status(500).json({
+//        success: false,
+//        message: 'Server mein kuch issue hai, please try again later.',
+//      });
+//   }
+// });
+
 //3. middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -51,6 +70,27 @@ app.get("/", (req, res) => {
     message: 'Your server is up and running....',
   });
 });
+
+
+// app.get("/",async (req, res) => {
+//   try {
+    
+//    await database.connect();
+//     return res.json({
+//       success: true,
+//       message: 'Your server is up and running....',
+//     });
+//   } catch (error) {
+//      // Step 3: Error ko handle karein
+//      console.error("Error connecting to database:", error);
+//      return res.status(500).json({
+//        success: false,
+//        message: 'Server mein kuch issue hai, please try again later.',
+//      });
+//   }
+  
+// });
+
 // app.get("/", (req, res) => {
 //   app.use(express.static(path.resolve(__dirname, "src", "build")));
 //   res.sendFile(path.resolve(__dirname, "src", "build", "index.html"));
