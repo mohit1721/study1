@@ -9,13 +9,14 @@ const {
   getEnrolledCourses,
   instructorDashboard,
 } = require("../controllers/Profile")
-
+const { changePassword } = require("../controllers/Auth");
 // ********************************************************************************************************
 //                                      Profile routes
 // ********************************************************************************************************
 // Delet User Account
 router.delete("/deleteProfile",auth, deleteAccount)
 router.put("/updateProfile", auth, updateProfile)
+router.put("/changePassword", auth, changePassword)
 router.get("/getUserDetails", auth, getAllUserDetails)
 // Get Enrolled Courses
 router.get("/getEnrolledCourses", auth,getEnrolledCourses)
