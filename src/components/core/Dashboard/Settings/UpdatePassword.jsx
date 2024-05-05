@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef,useState } from "react"
 import { useForm } from "react-hook-form"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useSelector } from "react-redux"
@@ -20,11 +20,13 @@ export default function UpdatePassword() {
     handleSubmit,
     formState: { errors },
   } = useForm()
-
+const form=useRef();
   const submitPasswordForm = async (data) => {
     // console.log("password Data - ", data)
     try {
       await changePassword(token, data)
+form.current.reset();
+
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
     }
@@ -32,7 +34,7 @@ export default function UpdatePassword() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitPasswordForm)}>
+      <form ref={form} onSubmit={handleSubmit(submitPasswordForm)}>
         <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
           <h2 className="text-lg font-semibold text-richblack-5">Password</h2>
           <div className="flex flex-col gap-5 lg:flex-row">
