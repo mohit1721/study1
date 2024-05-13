@@ -50,8 +50,8 @@ Front-end tools and technologies include ReactJS, CSS, Tailwind CSS, Redux for s
 Additionally, we use some npm packages to add extra functionality to the front end.
 
 [View Live Demo](https://mystudynotion.vercel.app)
-![studynotion1](https://github.com/yashsarode45/StudyNotion-Mega-Project/assets/65209607/ad992ea3-e257-404a-9d40-83183f7edfd3)
-![studynotion2](https://github.com/yashsarode45/StudyNotion-Mega-Project/assets/65209607/87089177-e065-4b8a-8515-3af8e3aed4db)
+![studynotion1](https://i.ibb.co/W2pQMsV/screencapture-mystudynotion-vercel-app-2024-05-13-18-53-24.png)
+
 
 
 ---
