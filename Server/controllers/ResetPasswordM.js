@@ -46,7 +46,7 @@ exports.resetPasswordToken = async (req, res) => {
     );
     // console.log("DETAILS", updatedDetails);
     // create url .
-    const url = `http://localhost:3000/update-password/${token}`; //always diff link ...because of token...which will diff always
+    const url = `http://mystudynotion.vercel.app/update-password/${token}`; //always diff link ...because of token...which will diff always
     // send email containing url
     await mailSender(email,
        "Password Reset Link", 
