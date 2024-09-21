@@ -39,8 +39,8 @@ exports.createRating = async (req, res) => {
       course: courseId,
     });
     if(alreadyReviewed) {
-      return res.status(403).json({
-        success: false,
+      return res.status(200).json({
+        success: true,
         message: "Course is already reviewed by the user",
       });
     }
