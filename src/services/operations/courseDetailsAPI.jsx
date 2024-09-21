@@ -377,21 +377,21 @@ export const createRating = async (data, token) => {
       Authorization: `Bearer ${token}`,
     })
     // console.log("CREATE RATING API RESPONSE............", response)
+        const toastRes = JSON.stringify(response?.data?.message) ;
     if (!response?.data?.success) {
       throw new Error("Could Not Create Rating")
     }
-
-  
-
-      toast.success("Rating Created")
-      successFlag = true
+     console.log(toastRes);
+    // toast.success("Rating Created")
+    toast.success(response?.data?.message)
+     successFlag = true
 
     
   } catch (error) {
     successFlag = false
     console.log("CREATE RATING API ERROR............", error)
-    // toast.error(error.message)
-    toast.success("Already Rated")
+    toast.error(error.message)
+   // toast.success("Already Rated")
   }
   toast.dismiss(toastId)
   return successFlag
