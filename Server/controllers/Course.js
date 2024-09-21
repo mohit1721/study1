@@ -203,12 +203,11 @@ exports.getCourseDetails = async (req, res) => {
       .populate("category")
       .populate(
       {  
-      path:"ratingAndReviews",//TO SHOW REVIEWS COURSE-WISE**++
+      path:"ratingAndReviews",//TO SHOW REVIEWS COURSE-WISE**++ /// CHALLENGES 
       populate:{
         path:"user"
       }    
       })
-
       .populate({
         path: "courseContent",
         populate: {

@@ -55,7 +55,7 @@ const {
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
 
 // ********************************************************************************************************
-//                                      Course routes
+//                     0                 Course routes
 // ********************************************************************************************************
 
 // Courses can Only be Created by Instructors

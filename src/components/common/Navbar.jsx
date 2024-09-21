@@ -15,17 +15,7 @@ import { ACCOUNT_TYPE } from "../../utils/constants"
 import NavbarMobile from "./NavbarMobile";
 // import { isObject } from "chart.js/dist/helpers/helpers.core";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-// const subLinksM = [
-//   {
-//     title: "python",
-//     path: "/catalog/python",
-//   },
-//   {
-//     title: "web-dev",
-//     path: "/catalog/web-development",
-//   },
-// ];
-
+ 
 const Navbar = () => {
   // useSelector ka use krke sb fetch krke lao
   const { token } = useSelector((state) => state.auth); //destructuring..FROM AUTH wali state/slice...token auth m h

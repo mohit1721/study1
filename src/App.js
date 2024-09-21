@@ -127,6 +127,7 @@ function App() {
               <Route path="dashboard/add-course" element={<AddCourse />} />
               <Route path="dashboard/my-courses" element={<MyCourses />} />
               <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} /> 
+              
               {/*EditCourse wali component[folder],jb course complete ban k MyCourses maa chuki h,tb jb fir se RenderSteps wala component show krna h ..tb te route se hoke jayega  */}
             </>
           )}

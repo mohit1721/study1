@@ -25,7 +25,6 @@ exports.createSubSection = async (req, res) => {
     // secure url-->uploadDetails k anadr mil jayega
     // console.log(uploadDetails);
     // create a SubSection
-
       //ks
     const totalDuration = convertSecondsToDuration(`${uploadDetails.duration}`);
 //  const totalDuration = courses.map(item => item.totalDuration).reduce((acc, curr) => acc + curr, 0);
