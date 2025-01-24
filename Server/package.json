@@ -2,9 +2,13 @@
   "name": "class-1",
   "version": "1.0.0",
   "main": "index.js",
+<<<<<<< HEAD
   "engines": {
     "node": ">=14.20.1"
   },
+=======
+   "engines": { "node": ">=14.20.1" },
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"

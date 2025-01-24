@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef,useState } from "react"
 import { useForm } from "react-hook-form"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useSelector } from "react-redux"
@@ -14,17 +14,23 @@ export default function UpdatePassword() {
 
   const [showOldPassword, setShowOldPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
+<<<<<<< HEAD
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false)
+=======
+ const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false)
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-
+const form=useRef();
   const submitPasswordForm = async (data) => {
     // console.log("password Data - ", data)
     try {
       await changePassword(token, data)
+form.current.reset();
+
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
     }
@@ -32,7 +38,7 @@ export default function UpdatePassword() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitPasswordForm)}>
+      <form ref={form} onSubmit={handleSubmit(submitPasswordForm)}>
         <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
           <h2 className="text-lg font-semibold text-richblack-5">Password</h2>
           <div className="flex flex-col gap-5 lg:flex-row">
@@ -92,7 +98,11 @@ export default function UpdatePassword() {
                 </span>
               )}
             </div>
+<<<<<<< HEAD
             <div className="relative flex flex-col gap-2 lg:w-[48%]">
+=======
+    <div className="relative flex flex-col gap-2 lg:w-[48%]">
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
               <label htmlFor="confirmNewPassword" className="lable-style">
               Confirm New Password
               </label>
@@ -120,6 +130,11 @@ export default function UpdatePassword() {
                 </span>
               )}
             </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
           </div>
         </div>
         <div className="flex justify-end gap-2">

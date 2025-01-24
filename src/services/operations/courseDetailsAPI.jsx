@@ -383,18 +383,30 @@ export const createRating = async (data, token) => {
     const response = await apiConnector("POST", CREATE_RATING_API, data, {
       Authorization: `Bearer ${token}`,
     })
+<<<<<<< HEAD
    // console.log("CREATE RATING API RESPONSE............", response)
     const toastRes = JSON.stringify(response?.data?.message) ;
+=======
+    // console.log("CREATE RATING API RESPONSE............", response)
+        const toastRes = JSON.stringify(response?.data?.message) ;
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
     if (!response?.data?.success) {
      throw new Error("Could Not Create Rating")
     //  const toastRes = JSON.stringify(response?.data?.message) ;
     //  console.log(toastRes);
     //  toast.success(toastRes)
     }
+<<<<<<< HEAD
     console.log(toastRes);
      // toast.success("Rating Created")
      toast.success(response?.data?.message)
       successFlag = true
+=======
+     console.log(toastRes);
+    // toast.success("Rating Created")
+    toast.success(response?.data?.message)
+     successFlag = true
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
 
 
 
@@ -402,8 +414,13 @@ export const createRating = async (data, token) => {
   } catch (error) {
     successFlag = false
     console.log("CREATE RATING API ERROR............", error)
+<<<<<<< HEAD
       toast.error(error.message)
      //toast.success("Already Rated")
+=======
+    toast.error(error.message)
+   // toast.success("Already Rated")
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
   }
   toast.dismiss(toastId)
   return successFlag

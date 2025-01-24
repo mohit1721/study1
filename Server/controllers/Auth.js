@@ -287,7 +287,7 @@ exports.changePassword = async (req, res) => {
       oldPassword,
       userDetails.password
     )
-    if (!isPasswordMatch) {
+    if (isPasswordMatch===false) {
       // If old password does not match, return a 401 (Unauthorized) error
       return res
         .status(401)
@@ -314,7 +314,7 @@ exports.changePassword = async (req, res) => {
       { new: true }
     );
 
-    // Send notification email
+  /*  // Send notification email
     try {
       const emailResponse = await mailSender(
         updatedUserDetails.email,
@@ -334,7 +334,7 @@ exports.changePassword = async (req, res) => {
         error: error.message,
       })
     }
-
+*/
     // Return success response
     return res
       .status(200)

@@ -2,9 +2,13 @@
   "name": "react-tailwind-css-starter-pack",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "engines": {
     "node": ">=14.20.1"
   },
+=======
+   "engines": { "node": ">=14.20.1" },
+>>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.0.3",
     "@reduxjs/toolkit": "^1.9.5",

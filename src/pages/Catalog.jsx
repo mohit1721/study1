@@ -56,8 +56,8 @@ if(categoryId){
 
   return (
     <div className="text-white mt-14">
-    <div className="box-content bg-richblack-800 px-4">
-     <div className="min-h-[260px] mx-auto flex flex-col justify-center gap-4 max-w-maxContentTab md:max-w-maxContent px-4 py-12 ">
+    <div className="box-content bg-richblack-800 p-4">
+     <div className="min-h-[260px] mx-auto flex flex-col justify-center gap-4 max-w-maxContentTab md:max-w-maxContent p-4 py-12 ">
      <p className='text-sm text-richblack-300'>{`Home/Catalog/`}
        <span className='text-yellow-25'>
            {catalogPageData?.data?.selectedCategory?.name}
@@ -72,10 +72,10 @@ if(categoryId){
 
  <div>
    {/* section 1 */}
-   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent px-4 py-12">
+   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent p-4 py-12">
    <div className="text-4xl font-bold text-richblack-5 section_heading">Courses to get you started</div>
      <div className="flex my-4 border-b-[1px] border-richblack-600 text-sm">
-       <p className="text-xl text-yellow-100">Most Popular</p>
+       <p className="text-xl font-semibold text-yellow-100">Most Popular</p>
        {/* <p>New</p> */}
      </div>
 
@@ -83,7 +83,7 @@ if(categoryId){
    </div>
 
    {/* section 2 Top Courses*/}
-   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent px-4 py-12">
+   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent p-4 py-12">
 
      <div className="text-4xl font-bold text-richblack-5 section_heading">Top Courses in {catalogPageData?.data?.differentCategory?.name} </div>
      <div className="py-8">
@@ -92,7 +92,7 @@ if(categoryId){
    </div>
 
    {/* <section 3 Frequently Bought*/}
-   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent px-4 py-12">
+   <div className="mx-auto w-full box-content max-w-maxContentTab md:max-w-maxContent p-4 py-12">
            <div className="text-4xl font-bold text-richblack-5 section_heading">Frequently Bought</div>
            <div className='py-8'>
                <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
