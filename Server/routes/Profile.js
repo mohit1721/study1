@@ -8,14 +8,9 @@ const {
   updateDisplayPicture,
   getEnrolledCourses,
   instructorDashboard,
-<<<<<<< HEAD
 } = require("../controllers/Profile");
 const { changePassword } = require("../controllers/Auth");
 
-=======
-} = require("../controllers/Profile")
-const { changePassword } = require("../controllers/Auth");
->>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
 // ********************************************************************************************************
 //                                      Profile routes
 // ********************************************************************************************************
