@@ -3,7 +3,7 @@ import axios from "axios";
 export const generateCertificateFE = async (data, token) => {
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/course/generate-certificate",
+      "https://study1.onrender.com/api/v1/course/generate-certificate",
       data,
       {
         headers: {
