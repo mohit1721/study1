@@ -14,11 +14,7 @@ export default function UpdatePassword() {
 
   const [showOldPassword, setShowOldPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
-<<<<<<< HEAD
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false)
-=======
- const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false)
->>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
   const {
     register,
     handleSubmit,
@@ -98,11 +94,7 @@ form.current.reset();
                 </span>
               )}
             </div>
-<<<<<<< HEAD
             <div className="relative flex flex-col gap-2 lg:w-[48%]">
-=======
-    <div className="relative flex flex-col gap-2 lg:w-[48%]">
->>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
               <label htmlFor="confirmNewPassword" className="lable-style">
               Confirm New Password
               </label>
@@ -130,11 +122,6 @@ form.current.reset();
                 </span>
               )}
             </div>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
           </div>
         </div>
         <div className="flex justify-end gap-2">

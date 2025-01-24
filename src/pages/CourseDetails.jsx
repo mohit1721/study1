@@ -203,20 +203,12 @@ py-8 lg:mx-0 lg:justify-items-start lg:py-0 xl:max-w-[810px]
   
         <p className="text-4xl font-bold text-richblack-5 sm:text-[42px] capitalize">{courseName}</p>
         <p className={`text-richblack-200`}>{courseDescription} </p>
-<<<<<<< HEAD
         <div className="flex flex-col md:flex-row gap-x-2 items-center">
 
         <div className="flex flex-row gap-x-2">
         <span className="text-yellow-25">{avgReviewCount || 0} </span>
           <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
         </div>
-=======
-        <div className="flex flex-col md:flex-row gap-2 gap-x-2 md:items-center">
-          <div className="flex gap-x-2">
-          <span className="text-yellow-25">{avgReviewCount || 0} </span>
-          <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
-          </div>
->>>>>>> fcb6f7b19227a1dfe79b0a6a2e21f03ba68e65ca
 
           <a href="#reviews"
           className="hover:underline scroll-smooth text-yellow-100 hover:text-yellow-25 "
