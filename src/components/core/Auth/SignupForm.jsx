@@ -33,7 +33,7 @@ function SignupForm() {
   const lowercaseRegExp = /(?=.*?[a-z])/;
   const digitsRegExp = /(?=.*?[0-9])/;
   const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
-  const minLengthRegExp = /.{1,}/; //MOHIT--CHANGE TO 8 LATER TODO:
+  const minLengthRegExp = /.{8,}/; //MOHIT--CHANGE TO 8 LATER TODO:
 
   // Handle input fields, when some value changes
   const handleOnChange = (e) => {

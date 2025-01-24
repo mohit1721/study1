@@ -1,9 +1,11 @@
 import { toast } from "react-hot-toast"
-
+ 
 // import { updateCompletedLectures } from "../../slices/viewCourseSlice"
 import { apiConnector } from "../apiconnector"
 import { courseEndpoints } from "../apis"
-
+// // Set up Redis client 
+// const redis = require("redis");
+// const redisClient = require("./client")
 const {
   COURSE_DETAILS_API,
   COURSE_CATEGORIES_API,
@@ -22,7 +24,7 @@ const {
   CREATE_RATING_API,
   LECTURE_COMPLETION_API,
 } = courseEndpoints
-
+//REDIS CACHING
 export const getAllCourses = async () => {
   const toastId = toast.loading("Loading...")
   let result = []
@@ -32,6 +34,11 @@ export const getAllCourses = async () => {
       throw new Error("Could Not Fetch Course Categories")
     }
     result = response?.data?.data
+  // const cacheValue = await redisClient.get("allCourses")
+  // if(cacheValue) return cacheValue.json(cacheValue);
+
+  // await redisClient.set("allCourses",result);
+  // await redisClient.expire("allCourses", 86400);
   } catch (error) {
     console.log("GET_ALL_COURSE_API API ERROR............", error)
     toast.error(error.message)

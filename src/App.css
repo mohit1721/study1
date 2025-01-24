@@ -157,3 +157,34 @@ details > summary {
 
 
 /* check box */
+
+
+/* 
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #31607eca;
+  overflow: hidden;
+   cursor: none;
+} */
+
+.dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(255, 242, 0);
+  border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(213, 231, 23, 0.5);
+      /* Shadow ka styling */
+  transform: translate(-50%, -50%);
+  /* Center the dot at the cursor */
+  pointer-events: none;
+  /* Prevent blocking mouse interactions */
+  cursor: none;
+}
+.dot:hover{
+  cursor: none;
+}
+
+ 

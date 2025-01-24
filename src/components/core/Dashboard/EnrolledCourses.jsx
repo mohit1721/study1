@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getUserEnrolledCourses } from "../../../services/operations/profileAPI";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useNavigate } from "react-router-dom";
+import CertificateButton from "./CertificateButton ";
 const EnrolledCourses = () => {
   const { token } = useSelector((state) => state.auth); //fetch to send as input parameter to db call
   const [enrolledCourses, setEnrolledCourses] = useState(null);
@@ -73,7 +74,7 @@ const EnrolledCourses = () => {
               </div>
 
               <div className="w-1/4 px-2 py-3">{course?.totalDuration}</div>
-              <div className="flex w-1/5 flex-col gap-2 px-2 py-3" >
+              <div className="flex w-1/5 flex-col gap-2 px-2 justify-evenly" >
                 {/* <p>Progress: {course.progressPercentage || 0}%</p> */}
                 <p>
                   {
@@ -82,8 +83,9 @@ const EnrolledCourses = () => {
                   }
 
                 </p>
-
-                <ProgressBar
+                <div className="flex flex-col gap-1">
+                
+<ProgressBar
                   completed={course.progressPercentage || 0}
                   height="8px"
                   isLabelVisible={false}
@@ -96,23 +98,26 @@ const EnrolledCourses = () => {
                   // baseBgColor="baseBgColor"
                 />
 
-     {/* <ProgressBar 
-    completed={0}
-    bgColor="#06D6A0"
-    height="8px"
-    width="202px"
-    borderRadius="2000px"
-    baseBgColor="#ffe400"
-    labelColor="#09e8d3"
-    transitionDuration="200"
-    transitionTimingFunction="ease-in"
-    animateOnRender
-    maxCompleted={100}
-    customLabel=""
-    /> */}
+ 
+              
+{/* Certificate Button (Visible only on completion) */}
+<div className="mx-auto">
+{course.progressPercentage === 100 && (
+    <CertificateButton course={course} token={token} />
+  )}
+     
+</div>
+                </div>
+
+
 
               </div>
+
+              
             </div>
+
+
+            
           )
           
           )}

@@ -89,7 +89,23 @@ status:{
 createdAt:{
   type:Date,
   default:Date.now(),
-}
+},
+certificates: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      certificateUrl: {
+        type: String, // URL or file path to the certificate
+      },
+      issuedAt: {
+        type: Date,
+        default: Date.now, // Date when the certificate was issued
+      },
+    },
+  ],
 
 });
 

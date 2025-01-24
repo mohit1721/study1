@@ -48,6 +48,7 @@ const {
 const {
   updateCourseProgress
 } =require("../controllers/courseProgress")
+const { generateCertificate } = require("../controllers/certificateController");
 
 
 
@@ -105,4 +106,6 @@ router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
 router.get("/getReviews", getAllRating)
 
+// Route to generate certificate
+router.post("/generate-certificate",auth,isStudent, generateCertificate);
 module.exports = router

@@ -148,15 +148,11 @@ function App() {
                     path ="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
                     element={<VideoDetails />}
                     />
-
                     
                   </>
                 )
               }
               </Route>
-
-
-
 
         <Route path="*" element={<Error />} />
       </Routes>

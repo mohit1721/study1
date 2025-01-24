@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fs = require("fs");
 
 //1. import routes
 const userRoutes = require("./routes/User");
@@ -15,12 +16,13 @@ const fileUpload = require("express-fileupload");//make sure all are installed [
 const dotenv = require("dotenv");
 const path = require("path");
 const PORT = process.env.PORT || 4000;
+// const { serveCertificates } = require("./controllers/certificateController");
 
 dotenv.config();//load dotenv config
 //2. database connect using connect fxn
 database.connect();//
 
-
+// serveCertificates(app);
 // app.get("/", (req, res) => { 
 //   try {    
 //      database.connect();
@@ -43,7 +45,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin:[ "http://localhost:3000", "https://mystudynotion.vercel.app",""],//"*",  //FOR FRONTEND..//  methods: ["GET", "POST", "PUT", "DELETE"],..VVI..to entertain frontend req.[[http://localhost:3000]] -->:["http://localhost:3000","https://mystudynotion.vercel.app","https://study1-jlkmw7ckr-mohit1721s-projects.vercel.app"], --------------------------["https://mystudynotion.vercel.app"]  
+    origin:[ "http://localhost:3000", "https://mystudynotion.vercel.app"],//"*",  //FOR FRONTEND..//  methods: ["GET", "POST", "PUT", "DELETE"],..VVI..to entertain frontend req.[[http://localhost:3000]] -->:["http://localhost:3000","https://mystudynotion.vercel.app","https://study1-jlkmw7ckr-mohit1721s-projects.vercel.app"], --------------------------["https://mystudynotion.vercel.app"]  
     credentials: true,
   })
 );
@@ -51,12 +53,23 @@ app.use(fileUpload({ //-_-   //,
   useTempFiles : true,
   tempFileDir : '/tmp/'  //, --_--
 }));
+// Ensure certificates directory exists
+const certificatesDir = path.join(__dirname, "certificates");
+if (!fs.existsSync(certificatesDir)) {
+  fs.mkdirSync(certificatesDir, { recursive: true });
+}
+
+// Serve certificates as static files
+app.use("/certificates", express.static(certificatesDir));
 // app.use(fileUpload({
 //   useTempFiles : true,
 //   tempFileDir : '/tmp/'
 // }));
 // cloudinary  connection
 cloudinaryConnect();
+// Middleware
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 //4. routes mount..
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/profile", profileRoutes);
