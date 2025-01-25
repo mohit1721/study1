@@ -380,83 +380,84 @@ exports.getEnrolledCourses = async (req, res) => {
   }
 };
 
-// exports.instructorDashboard = async(req,res)=>{
-//   try {
-//       //geting intructor all courses
-//     const courseDetails= await Course.find({instructor:req.user.id});
-//     // traversing each course
+exports.instructorDashboard = async(req,res)=>{
+  try {
+      //geting intructor all courses
+    const courseDetails= await Course.find({instructor:req.user.id});
+    // traversing each course
 
-// //getting info from course
-//     const courseData =courseDetails.map((course)=>{
-//       const totalStudentsEnrolled= course.studentsEnrolled.length;
-//       const totalAmountGenerated = totalStudentsEnrolled*course.price;
+//getting info from course
+    const courseData =courseDetails.map((course)=>{
+      const totalStudentsEnrolled= course.studentsEnrolled.length;
+      const totalAmountGenerated = totalStudentsEnrolled*course.price;
      
 
-//       //create a new object with the additional fields
-//       const courseDataWithStats={
-//         _id:course._id,
-//         courseName:course.courseDescription,
-//         totalStudentsEnrolled,
-//         totalAmountGenerated,
-//         // totalDuration
-//       }
-//       return courseDataWithStats
-//     })
-
-// res.status(200).json({courses:courseData})
-//   } catch (error) {
-//     console.error(error);
-// 		res.status(500).json({message:"Internal Server Error"});
-//   }
-// }
-// redis
-exports.instructorDashboard = async (req, res) => {
-  try {
-    const instructorId = req.user.id;
-    const cacheKey = `instructorDashboard:${instructorId}`;  // Unique cache key for the instructor
-
-    // Check if data is cached
-    const cachedDashboard = await getCache(cacheKey);
-
-    if (cachedDashboard) {
-      console.log("Returning cached instructor dashboard data");
-      return res.status(200).json({
-        success: true,
-        data: cachedDashboard,
-      });
-    }
-
-    // If data is not cached, proceed with fetching from the database
-    const courseDetails = await Course.find({ instructor: instructorId });
-
-    // Traverse each course to get the required stats
-    const courseData = courseDetails.map((course) => {
-      const totalStudentsEnrolled = course.studentsEnrolled.length;
-      const totalAmountGenerated = totalStudentsEnrolled * course.price;
-
-      // Create a new object with the additional fields
-      const courseDataWithStats = {
-        _id: course._id,
-        courseName: course.courseDescription,
+      //create a new object with the additional fields
+      const courseDataWithStats={
+        _id:course._id,
+        courseName:course.courseDescription,
         totalStudentsEnrolled,
         totalAmountGenerated,
-      };
+        // totalDuration
+      }
+      return courseDataWithStats
+    })
 
-      return courseDataWithStats;
-    });
-
-    // Cache the instructor dashboard data for 1 minutes
-    await setCache(cacheKey, courseData, 60);  // TTL of 60 seconds (10 minutes)
-
-    return res.status(200).json({
-      success: true,
-      data: courseData,
-    });
+res.status(200).json({courses:courseData})
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-    });
+		res.status(500).json({message:"Internal Server Error"});
   }
-};
+}
+
+// redis 
+// exports.instructorDashboard = async (req, res) => {
+//   try {
+//     const instructorId = req.user.id;
+//     const cacheKey = `instructorDashboard:${instructorId}`;  // Unique cache key for the instructor
+
+//     // Check if data is cached
+//     // const cachedDashboard = await getCache(cacheKey);
+
+//     // if (cachedDashboard) {
+//     //   console.log("Returning cached instructor dashboard data");
+//     //   return res.status(200).json({
+//     //     success: true,
+//     //     data: cachedDashboard,
+//     //   });
+//     // }
+
+//     // If data is not cached, proceed with fetching from the database
+//     const courseDetails = await Course.find({ instructor: instructorId });
+
+//     // Traverse each course to get the required stats
+//     const courseData = courseDetails.map((course) => {
+//       const totalStudentsEnrolled = course.studentsEnrolled.length;
+//       const totalAmountGenerated = totalStudentsEnrolled * course.price;
+
+//       // Create a new object with the additional fields
+//       const courseDataWithStats = {
+//         _id: course._id,
+//         courseName: course.courseDescription,
+//         totalStudentsEnrolled,
+//         totalAmountGenerated,
+//       };
+
+//       return courseDataWithStats;
+//     });
+
+//     // Cache the instructor dashboard data for 1 minutes
+//     // await setCache(cacheKey, courseData, 60);  // TTL of 60 seconds (10 minutes)
+
+//     return res.status(200).json({
+//       success: true,
+//       data: courseData,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal Server Error",
+//     });
+//   }
+// };

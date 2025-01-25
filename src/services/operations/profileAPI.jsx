@@ -109,7 +109,7 @@ export async function getUserEnrolledCourses(token) {
 }
 
 
-export async function getInstructorData (token){
+export async function getInstructorData(token){
   const toastId = toast.loading("Loading...")
 let result =[]
 try {
