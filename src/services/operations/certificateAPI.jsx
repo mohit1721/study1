@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import {toast} from "react-hot-toast"
 export const generateCertificateFE = async (data, token) => {
   try {
     const response = await axios.post(
@@ -13,7 +13,8 @@ export const generateCertificateFE = async (data, token) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error generating certificate:", error);
+    console.log("Error in generating certificate", error)
+    toast.error("Error generating certificate:");
     return null;
   }
 };

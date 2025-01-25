@@ -1,6 +1,7 @@
 const RatingAndReview = require("../models/RatingAndReview");
 const Course = require("../models/Course");
 const { default: mongoose } = require("mongoose");
+const { setCache, getCache } = require("../utils/redisUtils");
 
 //createRating
 
@@ -133,22 +134,68 @@ exports.getAverageRating = async (req, res) => {
 };
 
 //getAllRatingAndReviews
+// exports.getAllRating = async (req, res) => {
+//   try {
+//     // find call marro -->yehaan kisi basis pe nhi krni
+//     // sb return kr do
+//     // oncde check..model
+//     const allReviews = await RatingAndReview.find({})
+//       .sort({ rating: "desc" })
+//       .populate({
+//         path: "user",
+//         select: "firstName lastName email image", //isse user k andar kis kis fields ko populate krni h
+//       })
+//       .populate({
+//         path: "course", //course m sirf courseName wali field populate krni h
+//         select: "courseName",
+//       })
+//       .exec();
+//     return res.status(200).json({
+//       success: true,
+//       message: "All reviews fetched successfully",
+//       data: allReviews,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+// redis
 exports.getAllRating = async (req, res) => {
   try {
-    // find call marro -->yehaan kisi basis pe nhi krni
-    // sb return kr do
-    // oncde check..model
+    // Check if data is already cached
+    const cacheKey = "allReviews"; // Use a common key for all reviews cache
+    const cachedReviews = await getCache(cacheKey);
+
+    if (cachedReviews) {
+      console.log("Returning cached reviews data");
+      return res.status(200).json({
+        success: true,
+        message: "All reviews fetched successfully (from cache)",
+        data: cachedReviews,
+      });
+    }
+
+    // Fetch all reviews from the database if not cached
     const allReviews = await RatingAndReview.find({})
       .sort({ rating: "desc" })
       .populate({
         path: "user",
-        select: "firstName lastName email image", //isse user k andar kis kis fields ko populate krni h
+        select: "firstName lastName email image", // Only these fields
       })
       .populate({
-        path: "course", //course m sirf courseName wali field populate krni h
+        path: "course", // Populate only the courseName field
         select: "courseName",
       })
       .exec();
+
+    // Cache the fetched reviews for 10 minutes
+    await setCache(cacheKey, allReviews, 600); // TTL 600 seconds (10 minutes)
+
+    // Return response with the reviews data
     return res.status(200).json({
       success: true,
       message: "All reviews fetched successfully",

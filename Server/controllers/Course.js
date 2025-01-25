@@ -152,12 +152,58 @@ exports.createCourse = async (req, res) => {
 
 // 2.getAllCourses handlers fxn
 
-exports.getAllCourses = async (req, res) => {
-  try {
-    //TODO: change the below statement incrementally
+// exports.getAllCourses = async (req, res) => {
+//   try {
+//     //TODO: change the below statement incrementally
 
 
     
+//     const allCourses = await Course.find(
+//       {},
+//       {
+//         courseName: true,
+//         price: true,
+//         thumbnail: true,
+//         instructor: true,
+//         ratingAndReviews: true,
+//         studentsEnrolled: true,
+//         createdAt:true,
+//         category:true,
+//       }
+//     )
+//       .populate("instructor")
+//       .exec();
+//     return res.status.json({
+//       success: true,
+//       message: "Data for all courses fetched successfully",
+//       data: allCourses, //data pass kr diya
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: `Can't Fetch Course Data`,
+//       error: error.message,
+//     });
+//   }
+// };
+// redis 
+exports.getAllCourses = async (req, res) => {
+  try {
+    // Check if data is already cached
+    const cacheKey = "allCourses";
+    const cachedData = await getCache(cacheKey);
+
+    if (cachedData) {
+      console.log("Returning cached data for all courses.");
+      return res.status(200).json({
+        success: true,
+        message: "Data for all courses fetched successfully (from cache)",
+        data: cachedData,
+      });
+    }
+
+    // Fetch data from database
     const allCourses = await Course.find(
       {},
       {
@@ -167,101 +213,200 @@ exports.getAllCourses = async (req, res) => {
         instructor: true,
         ratingAndReviews: true,
         studentsEnrolled: true,
-        createdAt:true,
-        category:true,
+        createdAt: true,
+        category: true,
       }
     )
       .populate("instructor")
       .exec();
-    return res.status.json({
+
+    // Cache the data
+    await setCache(cacheKey, allCourses, 600); // TTL of 600 seconds (10 minutes)
+
+    // Return response
+    return res.status(200).json({
       success: true,
       message: "Data for all courses fetched successfully",
-      data: allCourses, //data pass kr diya
+      data: allCourses,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: `Can't Fetch Course Data`,
+      message: "Can't Fetch Course Data",
       error: error.message,
     });
   }
 };
 // 3.getcourseDetails
+// exports.getCourseDetails = async (req, res) => {
+//   try {
+//     // get id
+//     const { courseId } = req.body;
+//     // const userId = req.user.id;
+//     // find course details
+//     const courseDetails = await Course.findOne({
+//       _id: courseId,
+//     }) //is basis pe find out krna h
+//       // jo jo chhiye///  populate v krna h
+//       .populate({
+//         path: "instructor",
+//         populate:[ {
+//           path: "additionalDetails",
+//         },
+//         {
+//           path:"courses",
+//         },]
+//       })
+//       .populate("category")
+//       .populate(
+//       {  
+//       path:"ratingAndReviews",//TO SHOW REVIEWS COURSE-WISE**++ /// CHALLENGES 
+//       populate:{
+//         path:"user"
+//       }    
+//       })
+//       .populate({
+//         path: "courseContent",
+//         populate: {
+//           path: "subSection",
+//           select:"-videoUrl",
+//         },
+//       })
+//       .exec();
+
+   
+//     //   validation
+//     if (!courseDetails) {
+//       return res.status(400).json({
+//         success: false,
+//         message: `Could not find course with  ${courseId}`,
+//       });
+//     }
+
+//     let totalDurationInSeconds = 0
+//     courseDetails.courseContent.forEach((content) => {
+//       content.subSection.forEach((subSection) => {
+//         const timeDurationInSeconds = parseInt(subSection.timeDuration)
+//         totalDurationInSeconds += timeDurationInSeconds
+//       })
+//     })
+
+//     const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+
+//     // return res //success
+//     return res.status(200).json({
+//       success: true,
+//       message: "Course Details fetched successfully",
+//       data: {
+//         courseDetails,
+//         totalDuration,
+//       },
+//     });
+//   } catch (error) {
+//     // (error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });}
+  
+// };
+// redis
 exports.getCourseDetails = async (req, res) => {
   try {
-    // get id
+    // Get courseId from the request body
     const { courseId } = req.body;
-    // const userId = req.user.id;
-    // find course details
-    const courseDetails = await Course.findOne({
-      _id: courseId,
-    }) //is basis pe find out krna h
-      // jo jo chhiye///  populate v krna h
+
+    if (!courseId) {
+      return res.status(400).json({
+        success: false,
+        message: "Course ID is required",
+      });
+    }
+
+    // Check if data is already cached
+    const cacheKey = `course:${courseId}`;
+    const cachedData = await getCache(cacheKey);
+
+    if (cachedData) {
+      console.log(`Returning cached data for course ID: ${courseId}`);
+      return res.status(200).json({
+        success: true,
+        message: "Course details fetched successfully (from cache)",
+        data: cachedData,
+      });
+    }
+
+    // Fetch course details from the database
+    const courseDetails = await Course.findOne({ _id: courseId })
       .populate({
         path: "instructor",
-        populate:[ {
-          path: "additionalDetails",
-        },
-        {
-          path:"courses",
-        },]
+        populate: [
+          {
+            path: "additionalDetails",
+          },
+          {
+            path: "courses",
+          },
+        ],
       })
       .populate("category")
-      .populate(
-      {  
-      path:"ratingAndReviews",//TO SHOW REVIEWS COURSE-WISE**++ /// CHALLENGES 
-      populate:{
-        path:"user"
-      }    
+      .populate({
+        path: "ratingAndReviews",
+        populate: {
+          path: "user",
+        },
       })
       .populate({
         path: "courseContent",
         populate: {
           path: "subSection",
-          select:"-videoUrl",
+          select: "-videoUrl",
         },
       })
       .exec();
 
-   
-    //   validation
+    // Validation: Check if course details exist
     if (!courseDetails) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: `Could not find course with  ${courseId}`,
+        message: `Could not find course with ID ${courseId}`,
       });
     }
 
-    let totalDurationInSeconds = 0
+    // Calculate total course duration
+    let totalDurationInSeconds = 0;
     courseDetails.courseContent.forEach((content) => {
       content.subSection.forEach((subSection) => {
-        const timeDurationInSeconds = parseInt(subSection.timeDuration)
-        totalDurationInSeconds += timeDurationInSeconds
-      })
-    })
+        const timeDurationInSeconds = parseInt(subSection.timeDuration, 10);
+        totalDurationInSeconds += timeDurationInSeconds;
+      });
+    });
 
-    const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+    const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
 
+    // Cache the course details along with the total duration
+    const responseData = {
+      courseDetails,
+      totalDuration,
+    };
+    await setCache(cacheKey, responseData, 600); // TTL of 600 seconds (10 minutes)
 
-    // return res //success
+    // Return response
     return res.status(200).json({
       success: true,
-      message: "Course Details fetched successfully",
-      data: {
-        courseDetails,
-        totalDuration,
-      },
+      message: "Course details fetched successfully",
+      data: responseData,
     });
   } catch (error) {
-    // (error);
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: error.message,
-    });}
-  
+    });
+  }
 };
-
 
 // COPIED
 // Edit Course Details
@@ -606,7 +751,7 @@ exports.getInstructorCourses = async (req, res) => {
   }
 };
 
-// certificate
+ 
 // Controller to fetch course details and generate a certificate
 exports.getFullCourseDetails = async (req, res) => {
   try {
@@ -715,7 +860,7 @@ exports.getFullCourseDetails = async (req, res) => {
 
 /*
 //using REDIS
-// const redis = require('redis');
+// const redis = require('ioredis');
 const client = redis.createClient(); // Create Redis client
 
 // Function to set cache with TTL (in seconds)

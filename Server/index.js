@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
+const rateLimit = require("express-rate-limit");
 
 //1. import routes
 const userRoutes = require("./routes/User");
@@ -21,6 +22,20 @@ const PORT = process.env.PORT || 4000;
 dotenv.config();//load dotenv config
 //2. database connect using connect fxn
 database.connect();//
+
+// Rate limiting middleware (limit to 100 requests per 15 minutes)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+  headers: true, // Send rate limit info in headers
+});
+
+// Apply rate limiter to all requests
+app.use(limiter);
+// The rateLimit middleware is applied globally, limiting each IP to 100 requests per 15 minutes.
+
+
 
 // serveCertificates(app);
 // app.get("/", (req, res) => { 

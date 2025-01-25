@@ -41,7 +41,8 @@ export function sendOtp(email, navigate) {
      catch (error) {
       // console.log("mk5")
       console.log("SENDOTP API ERROR........", error)
-      toast.error("Could Not Send OTP")
+      // toast.error("Could Not Send OTP")
+      toast.error(`${error.response.data.message}`);
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
@@ -82,7 +83,8 @@ export function signUp(
       navigate("/login")
     } catch (error) {
       console.log("SIGNUP API ERROR............", error)
-      toast.error("Signup Failed")
+      // toast.error("Signup Failed")
+      toast.error(`${error.response.data.message}`);
       navigate("/signup")
     }
     dispatch(setLoading(false))
@@ -106,7 +108,8 @@ export function login(email, password, navigate) {
         throw new Error(response.data.message)
       }
 
-      toast.success("Login Successful")
+      // toast.success("Login Successful")
+      toast.success(`${response.data.message}`)
       dispatch(setToken(response.data.token))
       const userImage = response.data?.user?.image
         ? response.data.user.image
@@ -117,12 +120,15 @@ export function login(email, password, navigate) {
       navigate("/dashboard/my-profile")
     } catch (error) {
       console.log("LOGIN API ERROR..........", error)
-      toast.error("Login Failed")
+      // toast.error("Login Failed")
+      toast.error(`${error.response.data.message}`);
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
   }
 }
+// updated
+ 
 
 export function getPasswordResetToken(email,setEmailSent){
   return async (dispatch)=>{//since network/db call -->async
@@ -139,7 +145,8 @@ export function getPasswordResetToken(email,setEmailSent){
 
     } catch (error) {
       console.log("RESET PASSWORD TOKEN ERROR",error);
-      toast.error("Failed to send email for resetting password")
+      toast.error(`${error.response.data.message}`);
+      // toast.error("Failed to send email for resetting password")
     }
     toast.dismiss(toastId)
     dispatch(setLoading(false));
@@ -196,7 +203,8 @@ export function resetPassword(password, confirmPassword, token, navigate) {
     
     } catch (error) {
       console.log("RESET PASSWORD ERROR............", error)
-      toast.error("Failed To Reset Password")
+      // toast.error("Failed To Reset Password")
+      toast.error(`${error.response.data.message}`);
       // return;
     }
     // toast.dismiss(toastId)
