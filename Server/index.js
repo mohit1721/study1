@@ -23,9 +23,9 @@ dotenv.config();//load dotenv config
 //2. database connect using connect fxn
 database.connect();//
 
-// Rate limiting middleware (limit to 100 requests per 15 minutes)
+// Rate limiting middleware (limit to 100 requests per 5 minutes)
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 5 * 60 * 1000, // 5 minutes
   max: 100, // limit each IP to 100 requests per windowMs
   message: "Too many requests from this IP, please try again later.",
   headers: true, // Send rate limit info in headers
@@ -33,8 +33,7 @@ const limiter = rateLimit({
 
 // Apply rate limiter to all requests
 app.use(limiter);
-// The rateLimit middleware is applied globally, limiting each IP to 100 requests per 15 minutes.
-
+// The rateLimit middleware is applied globally, limiting each IP to 100 requests per 5 minutes.
 
 
 // serveCertificates(app);

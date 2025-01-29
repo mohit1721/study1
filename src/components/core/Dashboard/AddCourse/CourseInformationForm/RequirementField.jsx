@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { set } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 const RequirementField = ({
   name,
@@ -7,22 +8,42 @@ const RequirementField = ({
   register,
   errors,
   setValue,
-  getValues,
+  getValues 
 }) => {
   const [requirement, setRequirement] = useState("");
-  const [requirementList, setRequirementList] = useState([]);
+  const reqLists=getValues(name) || []
+  const [requirementList, setRequirementList] = useState(reqLists);
+  const { editCourse, course } = useSelector((state) => state.course);
 
   // #REGISTER ON FIRST RENDER
-useEffect(()=>{
-    register(name,{
-        required:true,
-        //validate:(value)=>value.length>0
-    })
-},[])
-// #value jaise -jaise change hoti rhegi[[[{requirement ki List}]]],waise -waise update v krna h--
-useEffect(()=>{
-    setValue(name,requirementList)
-},[requirementList]) 
+// useEffect(()=>{
+//     register(name,{
+//         required:true,
+//         //validate:(value)=>value.length>0
+//     })
+// },[register, name])
+// // #value jaise -jaise change hoti rhegi[[[{requirement ki List}]]],waise -waise update v krna h--
+// useEffect(()=>{
+//     setValue(name,requirementList)
+// },[requirementList,setValue, name]) 
+
+
+
+// ****
+ // ✅ **Edit Mode: Pre-fill `requirementList`**
+ useEffect(() => {
+  if (editCourse && course?.instructions) {
+    setRequirementList(course.instructions); // Load existing instructions
+  }
+  register(name, { required: true });
+}, [editCourse, course, name, register]);
+
+// ✅ **Update Form State Whenever `requirementList` Changes**
+useEffect(() => {
+  setValue(name, requirementList);
+}, [requirementList, setValue, name]); 
+
+
 
   const handleAddRequirement = () => {
     if (requirement) {

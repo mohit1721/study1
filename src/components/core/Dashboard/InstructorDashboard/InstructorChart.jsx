@@ -5,8 +5,8 @@ import {Pie} from "react-chartjs-2"//2.
 
 Chart.register(...registerables); //3.register chart
 
-const InstructorChart = ({courses}) => {//import courses
-
+const InstructorChart = ({instructorData}) => {//import courses
+// console.log("courses in CHART=>", allcourses)
     //using npm i chart.js
 
     //flag to show which chart is
@@ -23,20 +23,20 @@ const InstructorChart = ({courses}) => {//import courses
     }
 //create data for displaying student info
 const chartDataForStudents={
-    labels:courses.map((courses)=>courses.courseName),//hr courses k name...
+    labels:instructorData.map((course)=>course.courseName),//hr courses k name...
 //  jiska use krke pie chart bnega  
     datasets:[{
-        data:courses.map((course)=>course.totalStudentsEnrolled),
-        backgroundColor:getRandomColors(courses.length),
+        data:instructorData.map((course)=>course.totalStudentsEnrolled),
+        backgroundColor:getRandomColors(instructorData.length),
     }]
 }
 
 //create data for displaying income info
 const chartDataForIncome={
-    labels:courses.map((courses)=>courses.courseName),//hr courses k name...
+    labels:instructorData.map((course)=>course.courseName),//hr courses k name...
     datasets:[{
-        data:courses.map((course)=>course.totalAmountGenerated),
-        backgroundColor:getRandomColors(courses.length),
+        data:instructorData.map((course)=>course.totalAmountGenerated),
+        backgroundColor:getRandomColors(instructorData.length),
     }]
 }
 //create options---[[payments,auth ]]

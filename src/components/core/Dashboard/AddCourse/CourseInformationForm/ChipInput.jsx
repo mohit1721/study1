@@ -20,20 +20,33 @@ export default function ChipInput({
   // Setting up state for managing chips array
   const [chips, setChips] = useState([])
 
-  useEffect(() => {
-    if (editCourse) {
-      // console.log(course)
-      setChips(course?.tag)
-    }
-    register(name, { required: true, validate: (value) => value.length > 0 })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   if (editCourse) {
+  //     // console.log(course)
+  //     setChips(course?.tag)
+  //   }
+  //   register(name, { required: true, validate: (value) => value.length > 0 })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+// **
 
-  useEffect(() => {
-    setValue(name, chips)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chips])
+useEffect(() => {
+  if (editCourse && course?.tag) {
+    setChips(course.tag);
+  }
+  register(name, { required: true, validate: (value) => value.length > 0 });
+}, [editCourse, course, name, register]);
 
+// **
+  // useEffect(() => {
+  //   setValue(name, chips)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [chips])
+// //
+useEffect(() => {
+  setValue(name, chips);
+}, [chips, name, setValue]);
+// **
   // Function to handle user input when chips are added
   const handleKeyDown = (event) => {
     // Check if user presses "Enter" or ","

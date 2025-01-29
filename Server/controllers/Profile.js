@@ -395,7 +395,7 @@ exports.instructorDashboard = async(req,res)=>{
       //create a new object with the additional fields
       const courseDataWithStats={
         _id:course._id,
-        courseName:course.courseDescription,
+        courseName:course.courseName,
         totalStudentsEnrolled,
         totalAmountGenerated,
         // totalDuration
@@ -451,7 +451,7 @@ res.status(200).json({courses:courseData})
 
 //     return res.status(200).json({
 //       success: true,
-//       data: courseData,
+//       courses: courseData,
 //     });
 //   } catch (error) {
 //     console.error(error);

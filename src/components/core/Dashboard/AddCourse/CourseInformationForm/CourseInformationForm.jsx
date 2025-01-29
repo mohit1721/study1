@@ -16,11 +16,16 @@ import { COURSE_STATUS } from "../../../../../utils/constants";
 import Upload from "../Upload";
 import ChipInput from "./ChipInput";
 const CourseInformationForm = () => {
+  const limitWords = (text, maxWords = 100) => {
+    const words = text.trim().split(/\s+/);  // Split by any whitespace
+    return words.slice(0, maxWords).join(' ');  // Get the first 100 words
+  };
+  
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
+    getValues,watch ,
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
@@ -28,6 +33,9 @@ const CourseInformationForm = () => {
   const { course, editCourse } = useSelector((state) => state.course);
   const [loading, setLoading] = useState(false);
   const [courseCategories, setCourseCategories] = useState([]);
+  const selectedCategory = watch("courseCategory"); // Use watch to track category
+const selectedLevel = watch("level"); // Use watch to track
+const selectedLanguage= watch("language"); // Use watch to track
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true);
@@ -37,42 +45,62 @@ const CourseInformationForm = () => {
       }
       setLoading(false);
     };
-    if (editCourse) {  //course m ye saari cheezein h...
-      setValue("courseTitle", course.courseName); //mapp with values/variables
-      setValue("courseShortDesc", course.courseDescription);
-      setValue("coursePrice", course.price);
-      setValue("courseTags", course.tag);
-      setValue("courseBenefits", course.whatYouWillLearn);
-      setValue("courseCategory", course.category);
-      setValue("courseRequirements", course.instructions);
-      setValue("courseImage", course.thumbnail);
-      setValue("courseLanguage", course.language);
-      setValue("courseLevel", course.level);
+    // if (editCourse) {  //course m ye saari cheezein h...
+    //   setValue("courseName", course.courseName); //mapp with values/variables
+    //   setValue("courseShortDesc", course.courseDescription);
+    //   setValue("coursePrice", course.price);
+    //   setValue("courseTags", course.tag);
+    //   setValue("courseBenefits", course.whatYouWillLearn);
+    //   setValue("courseCategory", course.category);
+    //   setValue("courseRequirements", course.instructions);
+    //   setValue("courseImage", course.thumbnail);
+    //   setValue("courseLanguage", course.language);
+    //   setValue("courseLevel", course.level);
+    // }
+    if (editCourse && course) {  
+      setValue("courseName", course.courseName || ""); 
+      // setValue("courseShortDesc", course.courseDescription || "");
+      setValue("courseShortDesc", limitWords(course.courseDescription || "", 100));  // Limit to 100 words
+      setValue("coursePrice", course.price || "");
+      // setValue("courseTags", course.tag || []);
+      setValue("courseTags", Array.isArray(course.tag) ? course.tag : []);
+      setValue("instructions", Array.isArray(course.instructions) ? course.instructions : []); // Ensure instructions is an array
+
+      setValue("courseBenefits", course.whatYouWillLearn || "");
+      // setValue("courseCategory", course.category || {});
+      setValue("courseCategory",  course.category?._id || "");
+
+      // setValue("courseRequirements", course.instructions || []);
+      setValue("courseImage", course.thumbnail || "");
+      setValue("language", course.language || "");
+      setValue("level", course.level || "");
     }
+
+
     getCategories(); //call
-  }, []);
+  }, [editCourse]);
   const isFormUpdated=()=>{
     const currentValues = getValues();
     // if not equal [!==] ,return true..[[updated]]
         if(
-        currentValues.courseTitle!==course.courseName||
+        currentValues.courseName!==course.courseName||
         currentValues.courseShortDesc !== course.courseDescription ||
         currentValues.coursePrice !== course.price ||        
         currentValues.courseTags.toString() !== course.tag.toString() ||
         currentValues.courseBenefits !== course.whatYouWillLearn ||
         currentValues.courseCategory._id !== course.category._id ||
         currentValues.courseImage !== course.thumbnail ||
-        currentValues.courseRequirements.toString() !== course.instructions.toString()||
-        currentValues.courseLanguage !== course.language ||
-        currentValues.courseLevel !== course.level             
+        currentValues.instructions.toString() !== course.instructions.toString()||
+        currentValues.language !== course.language ||
+        currentValues.level !== course.level             
         )
        { return true;}
-    
+    console.log("Course NAME UPDATED->",currentValues.courseName )
         return false;
   }
 
 //handles next-button click**
-
+ 
 const onSubmit = async (data) => {
 if(editCourse){
  if(isFormUpdated()){
@@ -81,14 +109,20 @@ if(editCourse){
   const formData=new FormData();//FormData ka object bna lo..jisma sara form ka data rhne wala h
   formData.append("courseId",course._id); // is formdata m sara data append kr lo..*
   //append only changed/updated values
-  if(currentValues.courseTitle!== course.courseName){
+  if(currentValues.courseName!== course.courseName){
       formData.append("courseName",data.courseName);
   }
   
   if(currentValues.courseShortDesc !== course.courseDescription) {
       formData.append("courseDescription", data.courseShortDesc);
   }
-
+  if (currentValues.courseCategory?.id !== course.category?._id) {
+    formData.append("category", data.courseCategory);
+}
+if (currentValues.courseTags.toString() !== course.tag.toString()) {
+  formData.append("tag", JSON.stringify(data.courseTags));
+}
+ 
   if(currentValues.coursePrice !== course.price) {
       formData.append("price", data.coursePrice);
   }
@@ -100,18 +134,19 @@ if(editCourse){
     formData.append("thumbnailImage", data.courseImage);
   }
   if (currentValues.courseLanguage !== course.language) {
-    formData.append("courseLanguage", data.courseLanguage);
+    formData.append("language", data.language);
   }
   if (currentValues.courseLevel !== course.level) {
-    formData.append("courseLevel", data.courseLevel);
+    formData.append("level", data.level);
   }
-  if(currentValues.courseCategory._id !== course.category._id) {
-      formData.append("category", data.courseCategory);
-  }
+  
 
-  if(currentValues.courseRequirements.toString() !== course.instructions.toString()) {
-      formData.append("instructions", JSON.stringify(data.courseRequirements));
-  }
+  // if(currentValues.instructions.toString() !== course.instructions.toString()) {
+  //     formData.append("instructions", JSON.stringify(data.instructions));
+  // }
+  if (JSON.stringify(currentValues.instructions) !== JSON.stringify(course.instructions)) {
+    formData.append("instructions", JSON.stringify(data.instructions));
+}
 
   setLoading(true);
   const result = await editCourseDetails(formData,token); //saare data[[formdata]],ko API call m daalunga, jo editCourseDetails ki API Hogi
@@ -132,29 +167,36 @@ return;
 
 // create a new course
 const formData=new FormData();
-formData.append("courseName",data.courseTitle);
+formData.append("courseName",data.courseName);
 formData.append("courseDescription", data.courseShortDesc);
 formData.append("price", data.coursePrice);
 formData.append("tag", JSON.stringify(data.courseTags));
 formData.append("whatYouWillLearn", data.courseBenefits);
-formData.append("category", data.courseCategory);
-formData.append("instructions", JSON.stringify(data.courseRequirements));
+// formData.append("category", data.courseCategory);
+formData.append("category", data.courseCategory?._id || data.courseCategory);
+
+formData.append("instructions", JSON.stringify(data.instructions));
 formData.append("status", COURSE_STATUS.DRAFT);
 formData.append("thumbnailImage", data.courseImage);
-formData.append("courseLanguage", data.courseLanguage);
-formData.append("courseLevel", data.courseLevel);
+formData.append("language", data.language);
+formData.append("level", data.level);
 setLoading(true);
-// console.log("BEFORE add course API call");
-// console.log("PRINTING FORMDATA", formData);
+console.log("BEFORE add course API call");
+console.log("PRINTING FORMDATA", formData);
+// **
 const result =await addCourseDetails(formData,token);
 if(result){
     dispatch(setStep(2));
     dispatch(setCourse(result));//++course ki value ko v change kr di updated value k sath
 }
 setLoading(false);
-// console.log("AFTER add course API call");
-// console.log("PRINTING FORMDATA", formData);
+// **
+console.log("AFTER add course API call");
+console.log("PRINTING FORMDATA", formData);
+
+
   }
+ 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -163,18 +205,18 @@ setLoading(false);
     >
     {/* course title */}
       <div className="flex flex-col space-y-2">
-        <label className="text-sm text-richblack-5" htmlFor="courseTitle">
-          Course Title <sup className="text-pink-200">*</sup>{" "}
+        <label className="text-sm text-richblack-5" htmlFor="courseName">
+          Course Name <sup className="text-pink-200">*</sup>{" "}
         </label>
         <input       
-          id="courseTitle"
-          placeholder="Enter Course Title"
-          {...register("courseTitle", { required: true })}
+          id="courseName"
+          placeholder="Enter Course Name"
+          {...register("courseName", { required: true })}
           className="w-full form-style"
         />
-        {errors.courseTitle && (
+        {errors.courseName && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
-            Course title is required
+            Course Name is required
           </span>
         )}
       </div>
@@ -220,7 +262,9 @@ setLoading(false);
         </label>
         <select
           id="courseCategory"
-          defaultValue=""
+          // defaultValue=""
+          value={selectedCategory || ""}  // Controlled input: bind to state
+
           className="form-style w-full"
           {...register("courseCategory", { reuired: true })}
         >
@@ -245,10 +289,12 @@ setLoading(false);
           Course Level <sup className="text-pink-200">*</sup>
         </label>
         <select
-          {...register("courseLevel", { required: true })}
-          defaultValue=""
-          id="courseLevel"
+       
+          // defaultValue=""
+          id="level"
+          value={selectedLevel || ""}  // Controlled input: bind to state
           className="form-style w-full"
+          {...register("level", { required: true })}
         >
           <option value="" disabled>
             Choose a Level
@@ -260,7 +306,7 @@ setLoading(false);
               </option>
             ))}
         </select>
-        {errors.courseLevel && (
+        {errors.level && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
             Course Level is required
           </span>
@@ -269,15 +315,17 @@ setLoading(false);
 
    {/* Course language */}
    <div className="flex flex-col space-y-2">
-        <label className="text-sm text-richblack-5" htmlFor="courseLanguage">
+        <label className="text-sm text-richblack-5" htmlFor="language">
           Course Language
           <sup className="text-pink-200">*</sup>
         </label>
         <select
-          id="courseLanguage"
-          {...register("courseLanguage", { required: true })}
+          id="language"
+      
           className="form-style w-full"
-          defaultValue=""
+          // defaultValue=""
+          value={selectedLanguage || ""}  // Controlled input: bind to state
+          {...register("language", { required: true })}
         >
           <option value="" disabled>
             Choose a Language
@@ -289,7 +337,7 @@ setLoading(false);
               </option>
             ))} 
         </select>
-        {errors.courseLanguage && (
+        {errors.language && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
             Course Language is required
           </span>
@@ -340,12 +388,14 @@ setLoading(false);
             )}
         </div>
         <RequirementField
-            name="courseRequirements"
-            label="Requirements/Instructions"
+            name="instructions"
+            label="Instructions"
             register={register}           
             errors={errors} 
             setValue={setValue}
             getValues={getValues}//ssss
+            // initialRequirements={course.instructions || []}  // Pass initial requirements for pre-filling
+
         />
         {/* buttons */}
     <div className="flex justify-end gap-x-2">

@@ -20,7 +20,7 @@ const Instructor = () => {
             const instructorApiData = await getInstructorData(token);
             const result = await fetchInstructorCourses(token);
             // console.log(instructorApiData);
-
+            // console.log("Instructor courses FE->", result)
             //backend se call krke data leke aye ho aur state variable k anddar set kr diya h
             if(instructorApiData.length){//if valid 
                 setInstructorData(instructorApiData);
@@ -51,7 +51,7 @@ const Instructor = () => {
           <div className=''>
           <div className='my-4 flex flex-col md:flex-row lg:h-[450px] gap-y-4 md:gap-x-4'>
         
-          <InstructorChart courses={instructorData}/>
+          <InstructorChart instructorData={instructorData}/>
               
               <div className='flex items-center min-w-[250px] flex-col rounded-md bg-richblack-800 p-6 '>
                   <p className="text-lg font-bold text-richblack-5"> Statistics</p>

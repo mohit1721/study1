@@ -28,9 +28,7 @@ const coursesSchema = new mongoose.Schema({
       ref: "RatingAndReview",
     },
   ],
-  title: {
-    type: String,
-  },
+
   price: {
     type: Number,
   },
@@ -42,10 +40,9 @@ const coursesSchema = new mongoose.Schema({
     required:true,
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    // required: true,
-    ref: "Category",
-  },
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Category",
+},
   type:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "",
@@ -71,24 +68,18 @@ level: {
   required: true,
 },
 
-totalLectures: {
-  type: Number,
-},
-
-totalDuration: {
-  type: String,
-},
-
-rating: {
-  type: Number,
-},
+totalLectures: { type: Number,
+   default: 0 },
+totalDuration: { type: String, 
+  default: "0h 0m" },
+ 
 status:{
   type:String,
   enum:["Draft","Published"],
 },
 createdAt:{
   type:Date,
-  default:Date.now(),
+  default:Date.now,
 },
 certificates: [
     {
