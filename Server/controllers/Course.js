@@ -690,22 +690,22 @@ exports.deleteCourse = async (req, res) => {
 const cache = {}; // In-memory cache
 
 // Function to set cache with TTL
-// function setCache(key, value, ttl) {
-//   const expireTime = Date.now() + ttl; // TTL in milliseconds
-//   cache[key] = { value: value, expireTime: expireTime };
-// }
+function setCache(key, value, ttl) {
+  const expireTime = Date.now() + ttl; // TTL in milliseconds
+  cache[key] = { value: value, expireTime: expireTime };
+}
 
-// // Function to get cache with TTL validation
-// function getCache(key) {
-//   if (cache[key]) {
-//     if (Date.now() < cache[key].expireTime) {
-//       return cache[key].value; // Return value if not expired
-//     } else {
-//       delete cache[key]; // Remove expired cache
-//     }
-//   }
-//   return null; // Return null if cache is not found or expired
-// }
+// Function to get cache with TTL validation
+function getCache(key) {
+  if (cache[key]) {
+    if (Date.now() < cache[key].expireTime) {
+      return cache[key].value; // Return value if not expired
+    } else {
+      delete cache[key]; // Remove expired cache
+    }
+  }
+  return null; // Return null if cache is not found or expired
+}
 
 // // Your original function with caching
 exports.getInstructorCourses = async (req, res) => {
@@ -820,7 +820,7 @@ exports.getFullCourseDetails = async (req, res) => {
       .moveDown(1.5)
       .fontSize(18)
       .text(
-        `For successfully completing the course "${courseDetails.courseName}" with a total duration of ${totalDuration}.`,
+        `For successfully completing the course "${courseDetails.title}" with a total duration of ${totalDuration}.`,
         { align: "center" }
       )
       .moveDown(1.5)
