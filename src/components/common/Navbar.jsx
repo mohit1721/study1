@@ -74,7 +74,7 @@ const Navbar = () => {
   useOnClickOutside(ref,()=>setIsOpen(false));
 
   return (
-    <div className={`flex w-full h-14 items-center justify-center border-b-[1px] border-b-richblack-700
+    <div className={`backdrop-blur-lg bg-white/20 shadow-md z-50 flex w-full h-14 items-center justify-center border-b-[1px] border-b-richblack-700
     ${location.pathname !=="/" ? "bg-richblack-800":"bg-[#000c23]" } transition-all duration-200
   
   
