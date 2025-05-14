@@ -7,6 +7,7 @@ StudyNotion is a versatile and intuitive ed-tech platform that enables users to 
 - [System Architecture](#system-architecture)
 - [Front-end](#front-end)
 - [Back-end](#back-end)
+- [DB Design](#db-design)
 - [API Design](#api-design)
 - [Deployment](#deployment)
 
