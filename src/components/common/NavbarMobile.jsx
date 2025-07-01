@@ -58,11 +58,12 @@ const NavbarMobile = ({ loading, subLinks, matchRoute, isOpen, setIsOpen }) => {
       isCatalogOpen ? contentElCatalog.current.scrollHeight : 0
     );
   }, [isCatalogOpen]);
+console.log("NavbarMobile isOpen:", isOpen);
 
   return (
     <>
       <button
-        className="flex-col justify-center items-center relative z-500"
+        className="flex-col h-48 justify-center items-center relative z-500"
         onClick={handleClick}
       >
         <span
@@ -90,7 +91,7 @@ const NavbarMobile = ({ loading, subLinks, matchRoute, isOpen, setIsOpen }) => {
       {/* Links */}
       <div
         className={`fixed top-14 left-0 ${
-          isOpen ? "w-[30vh]" : "w-0"
+          isOpen ? "w-64" : "w-0"
         } h-screen ${
           location.pathname !== "/" ? "bg-richblack-800" : "bg-[#000c23]"
         } z-[100] flex justify-start items-center transition-all duration-[1s] flex-col overflow-hidden`}
@@ -98,7 +99,7 @@ const NavbarMobile = ({ loading, subLinks, matchRoute, isOpen, setIsOpen }) => {
         <div
           className={`${
             isOpen
-              ? "opacity-100 duration-[4.5s] "
+              ? "opacity-100 duration-500 "
               : "opacity-0 duration-[0.45s] "
           } w-full transition-all overflow-hidden`}
         >

@@ -68,7 +68,7 @@ const Navbar = () => {
     return matchPath({ path: route }, location.pathname); //route jo inpue m aa rha..aur current [[location.patname]] ko match kr rhe
   };
   // Mobile Navbar
-  const [isOpen,setIsOpen]=useState(false);
+  const [isOpen,setIsOpen]=useState(true);
   const ref=useRef(null);
 
   useOnClickOutside(ref,()=>setIsOpen(false));
@@ -179,7 +179,7 @@ const Navbar = () => {
 </ul>
 </nav>
   {/* login/signup/dashboard */}
-<div className="lg:flex gap-x-4 items-center hidden">
+<div className="md:flex gap-x-4 items-center hidden">
 {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
 <Link to="/dashboard/cart" className="relative ">
   <AiOutlineShoppingCart className="text-2xl text-richblack-200"/>
@@ -207,7 +207,7 @@ const Navbar = () => {
 {token !== null && <ProfileDropDown />} 
 </div>
         {/* Mobile Nvbar */}
-<nav className="mr-4 inline-block lg:hidden">
+<nav className="mr-4 inline-block md:hidden">
 <NavbarMobile 
 loading={loading}
 subLinks={subLinks}

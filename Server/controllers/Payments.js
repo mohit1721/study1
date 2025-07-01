@@ -8,6 +8,8 @@ const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail")
 // const {courseEnrollmentEmail} = require("../mail/templates/courseEnrollmentEmail");
 const crypto = require("crypto");
 const CourseProgress = require("../models/CourseProgress");
+require('dotenv').config();
+
 // const { convertSecondsToDuration } = require("../utils/secToDuration");
 // NEW WAY-->FOR MULTIPLE Courses
 
@@ -60,6 +62,8 @@ totalAmount +=course.price;
 }
 // const currency="INR";//-*****
 const options={
+    // key : process.env.RAZORPAY_KEY,
+
   amount:totalAmount*100,
   currency:"INR",
   receipt:Math.random(Date.now()).toString(),
@@ -70,7 +74,7 @@ try {
   res.json({
     success:true,
     data:paymentResponse,
-    msg:'order Created [glti..data send always ]'
+     msg:'order Created [glti..data send always ]'
   })  
 } catch (error) {
   console.log(error);

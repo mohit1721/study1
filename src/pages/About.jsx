@@ -27,7 +27,7 @@ const About = () => {
             Driving Innovation In Online Education for a
             <HighlightText text={"Brighter Future"} />
             <p className="text-center text-sm leading-6 mx-auto font-medium mt-3 text-richblack-300 lg:w-[95%]">
-              Studynotion is at the forefront of driving innovation in online
+              Lernix is at the forefront of driving innovation in online
               education. We're passionate about creating a brighter future by
               offering cutting-edge courses, leveraging emerging technologies,
               and nurturing a vibrant learning community.

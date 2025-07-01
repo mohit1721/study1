@@ -6,7 +6,7 @@ const InfoSectionData = [
     {
       heading: "Chat on us",
       desc1: "Our friendly team is here to help.",
-      desc2: "info@studynotion.com",
+      desc2: "info@lernix.com",
        icon : <HiChatBubbleLeftRight fontSize={25}/>
     },
     {

@@ -14,6 +14,8 @@
     "chart.js": "^4.4.0",
     "concurrently": "^8.2.0",
     "copy-to-clipboard": "^3.3.3",
+    "crypto-browserify": "^3.12.1",
+    "dotenv": "^17.0.0",
     "express-fileupload": "^1.4.3",
     "express-rate-limit": "^7.5.0",
     "node.js": "^0.0.1-security",
@@ -36,6 +38,7 @@
     "react-type-animation": "^3.1.0",
     "redis": "^4.7.0",
     "redux-toolkit": "^1.1.2",
+    "Server": "^1.0.0",
     "swiper": "^10.3.1",
     "video-react": "^0.16.0",
     "web-vitals": "^2.1.4"

@@ -67,7 +67,7 @@
 //       .moveDown(2);
 
 //     doc.fontSize(14).text(`Mentor: ${instructorName}`, { align: "right" }).moveDown(1);
-//     doc.fontSize(14).text(`Studynotion by ${instructorName}`, { align: "left" });
+//     doc.fontSize(14).text(`Lernix by ${instructorName}`, { align: "left" });
 
 //     doc.end();
 
@@ -187,7 +187,7 @@ doc.restore(); // Restore to default settings
       .moveDown(2);
 
     doc.fontSize(14).text(`Mentor: ${instructorName}`, { align: "right" }).moveUp(1);
-    doc.fontSize(14).text(`Studynotion by- ${instructorName}`, { align: "left" }).moveDown(1);;
+    doc.fontSize(14).text(`Lernix by- ${instructorName}`, { align: "left" }).moveDown(1);;
 
     const certificateUrl = `/certificates/${certificateFileName}`;
     const qrCodeImageBuffer = await QRCode.toBuffer(certificateUrl);

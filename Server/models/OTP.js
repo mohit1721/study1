@@ -26,7 +26,7 @@ async function sendVerificationEmail(email, otp) {
     // Send the email
     const mailResponse = await mailSender(
       email,
-      "Verification Email from StudyNotion",
+      "Verification Email from Lernix",
       emailTemplate(otp)
     );
     // console.log("Email sent successfully", mailResponse.response);

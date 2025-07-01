@@ -4,6 +4,7 @@ import { apiConnector } from "../apiconnector";
 import rzpLogo from "../../assets/Logo/rzp_logo.png";
 import { setPaymentLoading } from "../../slices/courseSlice"
 import { resetCart } from "../../slices/cartSlice";
+ 
 const {
   COURSE_PAYMENT_API,
   COURSE_VERIFY_API,
@@ -56,15 +57,15 @@ export async function buyCourse(
     if(!orderResponse.data.success) {
       throw new Error(orderResponse.data.message);
     }
-    // console.log("PRINTING orderResponse from backend", orderResponse.data);
+    console.log("PRINTING orderResponse from backend", orderResponse.data);
     //create options  **sbse imp.
   // Opening the Razorpay SDK
     const options = {
-      key: process.env.RAZORPAY_KEY,
+key: process.env.REACT_APP_RAZORPAY_KEY, // ✅ use REACT_APP_
       currency: orderResponse.data.data.currency,
       amount: `${orderResponse.data.data.amount}`,
       order_id: orderResponse.data.data.id,
-      name: "StudyNotion",
+      name: "Lernix",
       description: "Thank You for Purchasing the Course",
       image: rzpLogo,
       prefill: {
@@ -73,18 +74,21 @@ export async function buyCourse(
       },
       handler: function (response) {
         //
+        // console.log("sending mail")
         //1.send successful wala mail
         sendPaymentSuccessEmail(
           response,
           orderResponse.data.data.amount,
           token
         );
+        // console.log("verifying payment")
         //2.verifyPayment
         verifyPayment({ ...response, courses }, token, navigate, dispatch);
       },
     };
 
     //**-->MISSED ***
+console.log("all steps done")
 
     const paymentObject = new window.Razorpay(options);//modal created
     paymentObject.open(); //modal open
@@ -92,6 +96,7 @@ export async function buyCourse(
       toast.error("oops, Payment failed");
       console.log(response.error);
     });
+    // console.log("problem ??")
   } catch (error) {
     console.log("PAYMENT API ERROR.....", error);
     toast.error("Could not make Payment");
@@ -102,6 +107,7 @@ export async function buyCourse(
 async function sendPaymentSuccessEmail(response, amount, token) {
   try {
     //send mail
+    console.log("sending mail")
     await apiConnector(
       "POST",
       SEND_PAYMENT_SUCCESS_EMAIL_API,
@@ -121,6 +127,7 @@ async function sendPaymentSuccessEmail(response, amount, token) {
 
 // verify payment
 async function verifyPayment(bodyData, token, navigate, dispatch) {
+  console.log("verifying payment")
   const toastId = toast.loading("Verifying Payment...");
   //jo payment loading ka flag h usko true set kr do-->jo slices mh
   dispatch(setPaymentLoading(true));
