@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Lernix Ed-Tech Platform
-=======
-# [StudyNotion Ed-Tech Platform]([url](https://mystudynotion.vercel.app))
->>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
 
 Lernix is a versatile and intuitive ed-tech platform that enables users to create, consume, and rate educational content. It provides a seamless and interactive learning experience for students while offering a platform for instructors to showcase their expertise and connect with learners worldwide. The platform is built using the MERN stack, which includes ReactJS, NodeJS, MongoDB, and ExpressJS.
 
@@ -128,11 +124,7 @@ Sample API requests and responses:
 
 ## Deployment
 
-<<<<<<< HEAD
 Lernix is deployed on various cloud-based services:
-=======
-StudyNotion is deployed on various cloud-based services: 
->>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
 
 - Front-end: Vercel for static site hosting.
 - Back-end: Render or Railway for Node.js and MongoDB hosting.
