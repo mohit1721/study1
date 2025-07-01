@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Lernix Ed-Tech Platform
+=======
+# [StudyNotion Ed-Tech Platform]([url](https://mystudynotion.vercel.app))
+>>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
 
 Lernix is a versatile and intuitive ed-tech platform that enables users to create, consume, and rate educational content. It provides a seamless and interactive learning experience for students while offering a platform for instructors to showcase their expertise and connect with learners worldwide. The platform is built using the MERN stack, which includes ReactJS, NodeJS, MongoDB, and ExpressJS.
 
@@ -7,6 +11,7 @@ Lernix is a versatile and intuitive ed-tech platform that enables users to creat
 - [System Architecture](#system-architecture)
 - [Front-end](#front-end)
 - [Back-end](#back-end)
+- [DB Design](#db-design)
 - [API Design](#api-design)
 - [Deployment](#deployment)
 
@@ -38,7 +43,7 @@ The front end of Lernix is built with ReactJS, offering a dynamic and responsive
 - **Enrolled Courses**: Progress and list of enrolled courses.
 - **User Details**: Account information.
 - **User Edit Details**: Edit account information.
-
+- **Course Completion Certificate**: Earn Certificate after 100% course completion 
 **For Instructors:**
 
 - **Dashboard**: Overview of instructor's courses and ratings.
@@ -49,9 +54,19 @@ The front end of Lernix is built with ReactJS, offering a dynamic and responsive
 Front-end tools and technologies include ReactJS, CSS, Tailwind CSS, Redux for state management, and VSCode for development.
 Additionally, we use some npm packages to add extra functionality to the front end.
 
+<<<<<<< HEAD
 [View Live Demo](https://mylernix.vercel.app)
 ![Lernix1](https://i.ibb.co/W2pQMsV/screencapture-myLernix-vercel-app-2024-05-13-18-53-24.png)
 
+=======
+[[View Live Demo]]([url](https://mystudynotion.vercel.app))
+![Image](https://github.com/user-attachments/assets/0ea814cd-c476-4aad-9d53-89bc783329f0)
+![Image](https://github.com/user-attachments/assets/0ea814cd-c476-4aad-9d53-89bc783329f0)
+![Image](https://github.com/user-attachments/assets/f7311254-d9ad-4355-bd9f-2a16afc7c27d)
+![image](https://github.com/user-attachments/assets/70ec0068-b9f4-4963-bfde-fcace83b199e)
+![Image](https://github.com/user-attachments/assets/d268d6a9-9d19-4347-b3a7-33a3165708ed)
+![image](https://github.com/user-attachments/assets/093b5799-122b-4551-85a9-870d04617fc2)
+>>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
 
 
 ---
@@ -74,6 +89,10 @@ The back end of Lernix is built with NodeJS and ExpressJS and uses MongoDB as it
 - **Instructor Schema**: Includes name, email, password, and course details.
 - **Course Schema**: Includes course name, description, instructor details, and media content.
 
+---
+## DB Design
+
+![Image](https://github.com/user-attachments/assets/469ed3ea-1e7f-4ee1-a501-f9d832932d4c)
 ---
 
 ## API Design
@@ -109,7 +128,11 @@ Sample API requests and responses:
 
 ## Deployment
 
+<<<<<<< HEAD
 Lernix is deployed on various cloud-based services:
+=======
+StudyNotion is deployed on various cloud-based services: 
+>>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
 
 - Front-end: Vercel for static site hosting.
 - Back-end: Render or Railway for Node.js and MongoDB hosting.
