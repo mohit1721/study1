@@ -50,19 +50,12 @@ The front end of Lernix is built with ReactJS, offering a dynamic and responsive
 Front-end tools and technologies include ReactJS, CSS, Tailwind CSS, Redux for state management, and VSCode for development.
 Additionally, we use some npm packages to add extra functionality to the front end.
 
-![Lernix1](https://i.ibb.co/W2pQMsV/screencapture-myLernix-vercel-app-2024-05-13-18-53-24.png)
+ 
 
-=======
-[[View Live Demo]]([url](https://mylernix.vercel.app))
-![Image](https://github.com/user-attachments/assets/0ea814cd-c476-4aad-9d53-89bc783329f0)
-![Image](https://github.com/user-attachments/assets/0ea814cd-c476-4aad-9d53-89bc783329f0)
-![Image](https://github.com/user-attachments/assets/f7311254-d9ad-4355-bd9f-2a16afc7c27d)
-![image](https://github.com/user-attachments/assets/70ec0068-b9f4-4963-bfde-fcace83b199e)
-![Image](https://github.com/user-attachments/assets/d268d6a9-9d19-4347-b3a7-33a3165708ed)
-![image](https://github.com/user-attachments/assets/093b5799-122b-4551-85a9-870d04617fc2)
->>>>>>> e3aaf39de1c2f5f47704b4b520557b8de773f3b7
+ 
+![Image](https://github.com/user-attachments/assets/be150311-c226-4379-9797-c4e9d91c4b81)
 
-
+ 
 ---
 
 ## Back-end
